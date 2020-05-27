@@ -8,6 +8,23 @@ var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var dataRouter = require('./routes/data');
 
+const Sequelize = require('sequelize');
+const sequelize = new Sequelize({
+  dialect: 'sqlite',
+  storage: './database.sqlite'
+});
+
+const Data = sequelize.define('data', {
+  sensorId: Sequelize.STRING,
+  time: Sequelize.INTEGER,
+  value: Sequelize.FLOAT,
+});
+
+sequelize.sync({ force: false })
+    .then(() => {
+      console.log(`Database & tables created!`);
+    });
+
 var app = express();
 
 // view engine setup
