@@ -16,4 +16,4 @@ sequelize.sync({ force: false })
         console.log(`Database & tables created!`);
     });
 
-module.exports = { SensorData };
+module.exports = { SensorData, Sequelize };
