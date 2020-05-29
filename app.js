@@ -5,8 +5,11 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 
 var indexRouter = require('./routes/index');
-var dataRouter = require('./routes/data');
+var { dataRouter, setThresholdCallback } = require('./routes/data');
 var alertRouter = require('./routes/alerts');
+
+// swap console.log out for SMS or email to send alert message
+setThresholdCallback((sensorData) => console.log(`Alert: ${JSON.stringify(sensorData)}`));
 
 const app = express();
 

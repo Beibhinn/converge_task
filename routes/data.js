@@ -2,14 +2,14 @@ const express = require('express');
 const router = express.Router();
 const {check, validationResult} = require('express-validator');
 const Op = require('sequelize').Op;
-const SensorData = require('../models.js').SensorData;
+const { SensorData, Alerts }= require('../models.js');
 
 /* PUT data */
 router.put('/', [
     check("sensorId").isString().notEmpty(),
     check("time").isInt(),
     check("value").isFloat(),
-], async function (req, res) {
+], async function (req, res, next) {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
         return res.status(400).json({errors: errors.array()});
@@ -23,6 +23,20 @@ router.put('/', [
     // Create new database entry
     await SensorData.create({sensorId: req.body.sensorId, time: req.body.time, value: req.body.value});
 
+    // Check if there are thresholds associated with the sensor ID
+    const alert = await Alerts.findOne({
+        where: {
+            sensorId: req.body.sensorId,
+        }
+    });
+    // If the sensor ID has associated thresholds, check if the new value exceeds them
+    if (alert) {
+        if (req.body.value > alert.upperThreshold || req.body.value < alert.lowerThreshold) {
+            thresholdCallback(req.body)
+        }
+
+    }
+
     return res.status(204).send();
 });
 
@@ -31,7 +45,7 @@ router.get('/', [
     check("sensorId").isString().notEmpty(),
     check("since").isInt(),
     check("until").isInt(),
-], async function (req, res) {
+], async function (req, res, next) {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
         return res.status(400).json({errors: errors.array()});
@@ -48,4 +62,10 @@ router.get('/', [
     return res.json(results);
 });
 
-module.exports = router;
+let thresholdCallback = (sensorData)=>{};
+
+const setThresholdCallback = function(newCallback) {
+    thresholdCallback = newCallback;
+};
+
+module.exports = { dataRouter: router, setThresholdCallback: setThresholdCallback };

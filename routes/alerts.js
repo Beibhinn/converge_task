@@ -11,7 +11,7 @@ router.put('/', [
     check("sensorId").isString().notEmpty(),
     check("upperThreshold").isFloat(),
     check("lowerThreshold").isFloat(),
-], async function (req, res) {
+], async function (req, res, next) {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
         return res.status(400).json({errors: errors.array()});
@@ -31,7 +31,7 @@ router.put('/', [
 /* GET data. */
 router.get('/', [
     check("sensorId").isString().notEmpty()
-], async function (req, res) {
+], async function (req, res, next) {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
         return res.status(400).json({errors: errors.array()});
