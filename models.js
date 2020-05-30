@@ -11,9 +11,15 @@ const SensorData = sequelize.define('sensorData', {
     value: Sequelize.FLOAT,
 });
 
+const Alerts = sequelize.define('alerts', {
+    sensorId: {type: Sequelize.STRING, allowNull: false, unique: true},
+    upperThreshold: {type: Sequelize.FLOAT, allowNull: true},
+    lowerThreshold: {type: Sequelize.FLOAT, allowNull:true}
+});
+
 sequelize.sync({ force: false })
     .then(() => {
         console.log(`Database & tables created!`);
     });
 
-module.exports = { SensorData, Sequelize };
+module.exports = { SensorData, Alerts, Sequelize };

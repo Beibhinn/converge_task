@@ -1,0 +1,660 @@
+{
+	"info": {
+		"_postman_id": "d5e4e59a-996d-4124-93e0-dfbf8bc4cdbe",
+		"name": "Converge",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "SensorData PUT 204",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"sensorId\": \"string\",\n    \"time\":     12345,\n    \"value\":    0.8\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:3000/data/",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"data",
+						""
+					]
+				},
+				"description": "PUT request. Returns 204. All requirements satisfied - packet valid"
+			},
+			"response": []
+		},
+		{
+			"name": "SensorData PUT 409",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"sensorId\": \"string\",\n    \"time\":     12345,\n    \"value\":    0.8\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:3000/data/",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"data",
+						""
+					]
+				},
+				"description": "PUT request. Returns 409. Sensor ID and time are identical to the first Put request. Duplicates not permitted"
+			},
+			"response": []
+		},
+		{
+			"name": "SensorData PUT 400 ",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"sensorId\": \"string\",\n    \"time\":     123\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:3000/data/",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"data",
+						""
+					]
+				},
+				"description": "PUT request. 400 returned. No valid value given"
+			},
+			"response": []
+		},
+		{
+			"name": "SensorData PUT 400 ",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"sensorId\": \"string\",\n    \"value\":    0.8\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:3000/data/",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"data",
+						""
+					]
+				},
+				"description": "PUT request. 400 returned. No valid time given"
+			},
+			"response": []
+		},
+		{
+			"name": "SensorData PUT 400 ",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"time\":     12345,\n    \"value\":    0.8\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:3000/data/",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"data",
+						""
+					]
+				},
+				"description": "PUT request. 400 returned. No valid sensor ID given."
+			},
+			"response": []
+		},
+		{
+			"name": "SensorData GET 200 ",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"sensorId\": \"string\",\n    \"since\":     1,\n    \"until\":    6000\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:3000/data/",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"data",
+						""
+					]
+				},
+				"description": "GET request. Returns 200. Returns results with the given sensor ID, within the time frame specified. "
+			},
+			"response": []
+		},
+		{
+			"name": "SensorData GET 400",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"sensorId\": \"string\",\n    \"until\":    6000\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:3000/data/",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"data",
+						""
+					]
+				},
+				"description": "GET request. Returns 400. 'Since' value required"
+			},
+			"response": []
+		},
+		{
+			"name": "SensorData GET 400",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"sensorId\": \"string\",\n    \"since\":    3\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:3000/data/",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"data",
+						""
+					]
+				},
+				"description": "GET request. Returns 400. No valid 'until' given."
+			},
+			"response": []
+		},
+		{
+			"name": "SensorData GET 400",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"sensorId\": \"string\",\n    \"since\":    3.2,\n    \"until\":    17\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:3000/data/",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"data",
+						""
+					]
+				},
+				"description": "GET request. Returns 400. No valid 'sensorID' given"
+			},
+			"response": []
+		},
+		{
+			"name": "SensorData GET 400",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"sensorId\": \"string\",\n    \"since\":    3.2,\n    \"until\":    17\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:3000/data/",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"data",
+						""
+					]
+				},
+				"description": "GET request. Returns 400. Bad value given for 'since' - must be an integer"
+			},
+			"response": []
+		},
+		{
+			"name": "SensorData GET 400",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"sensorId\": \"string\",\n    \"since\":    3,\n    \"until\":    17.1\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:3000/data/",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"data",
+						""
+					]
+				},
+				"description": "GET request. Returns 400. Valid value not given for 'until'. Must be an integer"
+			},
+			"response": []
+		},
+		{
+			"name": "Alerts PUT 204",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"sensorId\": \"string\",\n    \"upperThreshold\":    42.7,\n    \"lowerThreshold\":    17.1\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:3000/alerts/",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"alerts",
+						""
+					]
+				},
+				"description": "PUT request. Returns 204. Valid request. Adds new thresholds for this sensor ID"
+			},
+			"response": []
+		},
+		{
+			"name": "Alerts PUT 400",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"sensorId\": \"string\",\n    \"upperThreshold\":    \"Hello\",\n    \"lowerThreshold\":    17.1\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:3000/alerts/",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"alerts",
+						""
+					]
+				},
+				"description": "PUT request. Returns 400. upperThreshold not valid- must be a float"
+			},
+			"response": []
+		},
+		{
+			"name": "Alerts PUT 400",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"sensorId\": \"string\",\n    \"upperThreshold\":   31.2,\n    \"lowerThreshold\":    \"hello\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:3000/alerts/",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"alerts",
+						""
+					]
+				},
+				"description": "PUT request. Returns 400. lowerThreshold not valid. Must be a float"
+			},
+			"response": []
+		},
+		{
+			"name": "Alerts PUT 400",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"upperThreshold\":   31.2,\n    \"lowerThreshold\":    4.3\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:3000/alerts/",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"alerts",
+						""
+					]
+				},
+				"description": "PUT request. Returns 400. SensorID must be included"
+			},
+			"response": []
+		},
+		{
+			"name": "Alerts PUT 204",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"sensorId\": \"string\",\n    \"upperThreshold\":    53.4,\n    \"lowerThreshold\":    11.8\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:3000/alerts/",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"alerts",
+						""
+					]
+				},
+				"description": "PUT request. Returns 204. Thresholds already exist for this sensor ID so thresholds are updated. No new record is created"
+			},
+			"response": []
+		},
+		{
+			"name": "Alerts GET 200",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"sensorId\": \"string\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:3000/alerts/",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"alerts",
+						""
+					]
+				},
+				"description": "GET request. Returns 200. Found sensorID thresholds."
+			},
+			"response": []
+		},
+		{
+			"name": "Alerts GET 404",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"sensorId\": \"string2\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:3000/alerts/",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"alerts",
+						""
+					]
+				},
+				"description": "GET request. Returns 404. No alert thresholds found for the given sensorId"
+			},
+			"response": []
+		},
+		{
+			"name": "Alerts GET 400",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"sensorId\": \"\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:3000/alerts/",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"alerts",
+						""
+					]
+				},
+				"description": "GET request. returns 400. Sensor ID must not be empty string"
+			},
+			"response": []
+		},
+		{
+			"name": "DataSensor PUT 204",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"sensorId\": \"string\",\n    \"time\":     5990,\n    \"value\":    0.8\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:3000/data/",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"data",
+						""
+					]
+				},
+				"description": "PUT request which checks thresholds (as they have now been established). Lower Threshold exceeded. Returns 204. Alert printed in console."
+			},
+			"response": []
+		},
+		{
+			"name": "DataSensor PUT 204",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"sensorId\": \"string\",\n    \"time\":     6473,\n    \"value\":    59.6\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:3000/data/",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"data",
+						""
+					]
+				},
+				"description": "PUT request which checks thresholds. Exceeds upper threshold. Returns 204. Alert printed in console"
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}
